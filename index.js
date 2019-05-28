@@ -1,5 +1,6 @@
 const express = require('express');
 const trees = require('./routers/tree');
+const cors = require('cors');
 
 const app = express();
 
