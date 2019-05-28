@@ -7,5 +7,5 @@ app.use(express.json());
 
 app.use('/', trees);
 
-const PORT = process.env.PORT | 433;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log("App is listenning in port " + PORT));
