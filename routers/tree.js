@@ -32,15 +32,19 @@ router.delete('/:id', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
   const tree = await models.trees.findByPk(parseInt(req.params.id));
-  if(!tree)
-    res.status(404).send('Tree not found!')
+  const frTree = await models.trees.findByPk(parseInt(req.body.parent));
+  if(!tree || !frTree)
+    return res.status(404).send('Tree not found!')
   res.send(_.pick(await tree.update(req.body), 'id', 'parent', 'text'));
 })
 
 //create user
 router.post('/', async (req, res) => {
   const tree = await models.trees.create(req.body);
-  res.send();
+  const frTree = await models.trees.findByPk(parseInt(req.body.parent));
+  if(!frTree)
+    return res.status(404).send('Tree not found!')
+  res.send(_.pick(tree, 'id', 'parent', 'text'));
 })
 
 module.exports = router;
